@@ -41,7 +41,7 @@ app.use('/product', productRoutes);
 app.use('/orders', orderRoutes);
 app.use("/user", userRoutes);
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", 'inline; filename="API_doc.pdf"');
 
