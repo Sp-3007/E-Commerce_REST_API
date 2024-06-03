@@ -3,6 +3,8 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser= require('body-parser');
 const mongoose = require('mongoose');
+const fs = require("fs");
+const path = require("path");
 
 const productRoutes = require('./api/routes/product');
 const orderRoutes = require('./api/routes/order');
@@ -38,6 +40,19 @@ app.use((req,res,next)=>{
 app.use('/product', productRoutes);
 app.use('/orders', orderRoutes);
 app.use("/user", userRoutes);
+
+app.use("/", (req, res) => {
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", 'inline; filename="API_doc.pdf"');
+
+  // Read the PDF file from the filesystem
+  const pdfFilePath = path.join(__dirname, "API_doc.pdf");
+  const pdfFile = fs.createReadStream(pdfFilePath);
+
+  // Pipe the PDF file to the response
+  pdfFile.pipe(res);
+});
+
 
 // Error handling for routes not found
 app.use((req, res, next) => {
