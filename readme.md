@@ -1,4 +1,4 @@
-                                         Shop API - User Module Documentation
+##                                      Shop API - User Module Documentation
 
 ## Overview
 
